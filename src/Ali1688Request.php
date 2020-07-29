@@ -12,4 +12,5 @@ namespace Yr1688;
 class Ali1688Request
 {
 
+
 }

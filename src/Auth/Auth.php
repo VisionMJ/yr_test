@@ -4,15 +4,17 @@ namespace Yr1688\Auth;
 
 class Auth
 {
-    private $appKey = '';
+    protected $appKey = '';
 
-    private $appSecret = '';
+    protected $appSecret = '';
 
-    private $callback_url = '';
+    protected $access_token = '';
 
-    private $request_url = 'https://gw.open.1688.com/openapi/';
+    protected $callback_url = '';
 
-    private $auth_url = 'https://auth.1688.com/oauth/authorize';
+    protected $request_url = 'https://gw.open.1688.com/openapi/';
+
+    protected $auth_url = 'https://auth.1688.com/oauth/authorize';
 
     /**
      * 授权并且记录授权的code
@@ -30,11 +32,18 @@ class Auth
      */
     function setConfig(array $config)
     {
-        $this->appKey = $config['appKey'];
-        $this->appSecret = $config['appSecret'];
-        $this->callback_url = $config['callback_url'];
+        $this->appKey = $config['appKey'] ?? '';
+        $this->appSecret = $config['appSecret'] ?? '';
+        $this->callback_url = $config['callback_url'] ?? '';
+        $this->access_token = $config['access_token'] ?? '';
+        if ($this->access_token == '') {
+            $this->auth();
+        }
     }
 
+    /**
+     * 授权
+     */
     function auth()
     {
         $this->auth_url .= '?client_id=' . $this->appKey . '&site=1688&redirect_uri=' . urlencode($this->callback_url) . '&state=1';
