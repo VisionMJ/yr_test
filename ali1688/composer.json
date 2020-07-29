@@ -1,0 +1,19 @@
+{
+    "name": "majian/yr_test",
+    "description": "yr_test",
+    "authors": [
+        {
+            "name": "Dr.Ma",
+            "email": "470922857@qq.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Yr1688\\":"src/"
+        }
+
+    }
+}
