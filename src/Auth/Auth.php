@@ -37,7 +37,7 @@ class Auth
         $this->callback_url = $config['callback_url'] ?? '';
         $this->access_token = $config['access_token'] ?? '';
         if ($this->access_token == '') {
-            $this->auth();
+//            $this->auth();
         }
     }
 
