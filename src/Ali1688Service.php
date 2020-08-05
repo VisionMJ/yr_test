@@ -66,8 +66,8 @@ class Ali1688Service extends Auth
         $apiInfo = 'param2/1/com.alibaba.trade/' . $api . '/' . $this->appKey;
 
         $code_arr = array(
-            'access_token' => 'f5f85ff1-89a5-4191-a328-2e47cba4c451',
-            'webSite' => '1688',
+            'access_token' => $this->access_token,
+            '_aop_timestamp' => date('Ymdhi',time()).'08000+0800',
         );
         $code_arr = array_merge($code_arr, $post_data);
         $aliParams = array();
