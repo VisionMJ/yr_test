@@ -42,7 +42,7 @@ class Ali1688Service extends Auth
         $http_client = self::getHttpClient();
         $res_url = $this->sign($post_data, $api);
         try {
-            $res = $http_client->post($res_url);
+            $res = json_decode($http_client->post($res_url)->getBody(), true);
             if (isset($res['errorCode'])) {
                 throw new \Exception($res['errorMessage'], $res['errorCode']);
             }
@@ -67,7 +67,6 @@ class Ali1688Service extends Auth
 
         $code_arr = array(
             'access_token' => $this->access_token,
-            '_aop_timestamp' => date('Ymdhi',time()).'08000+0800',
         );
         $code_arr = array_merge($code_arr, $post_data);
         $aliParams = array();
@@ -82,7 +81,7 @@ class Ali1688Service extends Auth
         foreach ($post_data as $key => $val) {
             $sign .= "&$key=$val";
         }
-        $res_url = $this->request_url . $apiInfo . '?access_token=' . $this->access_token . $sign . '_aop_signature=' . $code_sign;
+        $res_url = $this->request_url . $apiInfo . '?access_token=' . $this->access_token . $sign . '&_aop_signature=' . $code_sign;
         return $res_url;
     }
 
