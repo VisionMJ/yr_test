@@ -34,13 +34,14 @@ class Ali1688Service extends Auth
      * 公共请求处理
      * @param array $post_data
      * @param $api
+     * @param $module
      * @return \Psr\Http\Message\ResponseInterface|string
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function send(array $post_data, $api)
+    public function send(array $post_data, $api, $module)
     {
         $http_client = self::getHttpClient();
-        $res_url = $this->sign($post_data, $api);
+        $res_url = $this->sign($post_data, $api, $module);
         try {
             $res = json_decode($http_client->post($res_url)->getBody(), true);
             if (isset($res['errorCode'])) {
@@ -56,14 +57,15 @@ class Ali1688Service extends Auth
 
     /**
      * 请求前签名以及数据处理
-     * @param $post_data
+     * @param array $post_data
      * @param $api
+     * @param $module
      * @return string
      */
-    function sign($post_data, $api)
+    function sign(array $post_data, $api, $module)
     {
 
-        $apiInfo = 'param2/1/com.alibaba.trade/' . $api . '/' . $this->appKey;
+        $apiInfo = 'param2/1/' . $module . '/' . $api . '/' . $this->appKey;
 
         $code_arr = array(
             'access_token' => $this->access_token,
